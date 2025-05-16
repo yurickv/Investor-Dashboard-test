@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTransition } from "react";
 
 type Investment = {
   id: string;
@@ -18,6 +19,26 @@ type SortDirection = "asc" | "desc";
 export default function InvestmentTable({ data }: { data: Investment[] }) {
   const [sortKey, setSortKey] = useState<SortKey>(null);
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
+  const [isPending, startTransition] = useTransition();
+
+  const simulatePayout = async (inv: Investment) => {
+    console.log("Sending investment", inv);
+    startTransition(async () => {
+      const res = await fetch("/api/simulate-payout", {
+        method: "POST",
+        body: JSON.stringify(inv),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!res.ok) {
+        alert("Failed to simulate payout");
+      } else {
+        alert("Payout simulated");
+        // optionally: refresh page
+        window.location.reload();
+      }
+    });
+  };
 
   const handleSort = (key: SortKey) => {
     if (sortKey === key) {
@@ -75,6 +96,7 @@ export default function InvestmentTable({ data }: { data: Investment[] }) {
             >
               Next Distribution {renderSortIcon("next_distribution_date")}
             </th>
+            <th className='p-3'>Action</th>
           </tr>
         </thead>
         <tbody className='text-sm'>
@@ -86,6 +108,19 @@ export default function InvestmentTable({ data }: { data: Investment[] }) {
               <td className='p-3'>${inv.market_value}</td>
               <td className='p-3'>{inv.roi_percent}%</td>
               <td className='p-3'>{inv.next_distribution_date}</td>
+              <td className='p-3'>
+                <button
+                  onClick={() => simulatePayout(inv)}
+                  className={`text-sm text-white px-3 py-1 rounded w-[85px] ${
+                    isPending
+                      ? "bg-green-400"
+                      : "bg-green-600 hover:bg-green-700"
+                  }`}
+                  disabled={isPending}
+                >
+                  Payout
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
