@@ -69,3 +69,22 @@ This project was developed with assistance from OpenAI’s ChatGPT, used for:
 - Creating frontend sorting/filtering logic
 - Improving UI/UX with Tailwind
 - Writing this README.md
+
+**Supabase Schema (Recommended for Use):**
+
+- Table: `investments`
+  - `id` (uuid, primary key)
+  - `investor_id` (uuid)
+  - `project_name` (text)
+  - `token_class` (text)
+  - `shares_owned` (integer)
+  - `market_value` (numeric)
+  - `roi_percent` (numeric)
+  - `next_distribution_date` (date)
+  - `created_at` (timestamp)
+- Table: `investor_summary`
+  - `investor_id` (uuid, primary key)
+  - `total_invested_amount` (numeric)
+  - `portfolio_value` (numeric)
+  - `distributions_received` (numeric)
+  - `outstanding_commitments` (numeric)

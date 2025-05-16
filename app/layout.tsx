@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ReactNode } from "react";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Investor Dashboard",
@@ -10,7 +11,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang='en'>
-      <body className='bg-gray-50 text-gray-900 font-sans'>{children}</body>
+      <body className='bg-gray-50 text-gray-900 font-sans'>
+        <Toaster position='top-right' />
+        {children}
+      </body>
     </html>
   );
 }

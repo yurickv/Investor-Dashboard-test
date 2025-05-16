@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTransition } from "react";
+import { toast } from "react-hot-toast";
 
 type Investment = {
   id: string;
@@ -31,9 +32,11 @@ export default function InvestmentTable({ data }: { data: Investment[] }) {
       });
 
       if (!res.ok) {
-        alert("Failed to simulate payout");
+        toast.error(`Failed to simulate payout. 
+          Something went wrong`);
       } else {
-        alert("Payout simulated");
+        const payoutAmount = inv.market_value * (inv.roi_percent / 100);
+        toast.success(`Payout $${payoutAmount} simulated`);
         // optionally: refresh page
         window.location.reload();
       }

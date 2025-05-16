@@ -1,3 +1,8 @@
+"use client";
+
+import { useEffect } from "react";
+import { toast } from "react-hot-toast";
+
 interface SummaryProps {
   summary: {
     total_invested_amount: number;
@@ -8,6 +13,18 @@ interface SummaryProps {
 }
 
 export default function Metrics({ summary }: SummaryProps) {
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+
+    if (!summary) {
+      timeout = setTimeout(() => {
+        toast.error("Unable to load summary data");
+      }, 5000);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [summary]);
+
   if (!summary) {
     return (
       <div className='text-gray-500 bg-white p-4 rounded shadow'>

@@ -4,7 +4,7 @@ import Metrics from "@/conponents/Metrics";
 import InvestmentTable from "@/conponents/InvestmentTable";
 
 export default async function DashboardPage() {
-  const cookieStore = await cookies(); // ✅ async
+  const cookieStore = await cookies();
   const investorId = cookieStore.get("investor_id")?.value;
 
   if (!investorId) {

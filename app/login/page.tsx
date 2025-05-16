@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -18,9 +19,10 @@ export default function LoginPage() {
     });
 
     if (res.ok) {
+      toast.success(`Successfully login`);
       router.push("/dashboard");
     } else {
-      alert("Login failed");
+      toast.error(`Login failed`);
     }
   };
 
