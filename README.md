@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Investor Dashboard App
 
-## Getting Started
+A secure, server-rendered investment dashboard built with Next.js and Supabase. It allows investors to log in, view their investment portfolio, and simulate payouts using real-time database updates. AI-assisted tooling was used to accelerate development and logic design.
 
-First, run the development server:
+## 🧰 Tech Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Framework:** [Next.js 14 (App Router)](https://nextjs.org)
+- **Backend-as-a-Service:** [Supabase](https://supabase.com) (PostgreSQL, Auth, API)
+- **UI Styling:** Tailwind CSS
+- **Type Checking:** TypeScript
+- **Authentication:** Supabase Auth with `investor_id` stored in secure cookies
+- **AI Tools:**
+  - **OpenAI ChatGPT**: Prompt-driven design, logic validation, and error resolution
+  - **GitHub Copilot** (optional): In-editor code suggestions
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ⚙️ Environment Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Clone the repository**
 
-## Learn More
+   ```bash
+   git clone https://github.com/yurickv/Investor-Dashboard-test.git
+   cd Investor-Dashboard-test
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Install dependencies**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   npm install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **Create .env.local**
+   ```bash
+   NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+   ```
+4. **Run locally**
+   ```bash
+   npm run dev
+   ```
+   Visit: http://localhost:3000
 
-## Deploy on Vercel
+## 🛠 Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Secure login and session via cookies
+- Protected dashboard using server-side checks and middleware
+- Investor portfolio table with:
+  - ROI% and next distribution date sorting
+  - Payout simulation: adds calculated value to distributions_received and updates next_distribution_date
+- Supabase integration
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🚀 Simulate Payout Logic
+
+Each investment row includes a button to simulate a monthly payout:
+
+- Payout = market_value \* roi_percent / 100
+- Updates:
+  - distributions_received in investor_summary
+  - next_distribution_date in both investor_summary and investments
+
+Supabase RPC or API endpoints handle this securely.
