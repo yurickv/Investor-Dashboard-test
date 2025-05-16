@@ -35,7 +35,9 @@ export default function InvestmentTable({ data }: { data: Investment[] }) {
         toast.error(`Failed to simulate payout. 
           Something went wrong`);
       } else {
-        const payoutAmount = inv.market_value * (inv.roi_percent / 100);
+        const payoutAmount = parseFloat(
+          (inv.market_value * (inv.roi_percent / 100)).toFixed(2)
+        );
         toast.success(`Payout $${payoutAmount} simulated`);
         // optionally: refresh page
         window.location.reload();

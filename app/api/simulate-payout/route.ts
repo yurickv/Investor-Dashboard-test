@@ -36,7 +36,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const payoutAmount = market_value * (roi_percent / 100);
+    const payoutAmount = parseFloat(
+      (market_value * (roi_percent / 100)).toFixed(2)
+    );
     const newDistributions =
       (summary.distributions_received ?? 0) + payoutAmount;
 
