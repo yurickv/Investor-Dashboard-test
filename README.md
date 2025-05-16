@@ -60,3 +60,12 @@ Each investment row includes a button to simulate a monthly payout:
   - next_distribution_date in both investor_summary and investments
 
 Supabase RPC or API endpoints handle this securely.
+
+## 📚 AI Involvement
+
+This project was developed with assistance from OpenAI’s ChatGPT, used for:
+
+- Generating Supabase query logic
+- Creating frontend sorting/filtering logic
+- Improving UI/UX with Tailwind
+- Writing this README.md
